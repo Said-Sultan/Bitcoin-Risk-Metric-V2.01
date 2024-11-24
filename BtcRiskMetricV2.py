@@ -8,11 +8,10 @@ import nasdaqdatalink
 import yfinance as yf
 
 # Download historical data from Nasdaq-Data-Link
-df = nasdaqdatalink.get_table("QDL/BCHAIN", api_key='FYzyusVT61Y4w65nFESX', paginate=True)
-df = df[df["code"] == "MKPRU"].reset_index()
+df = nasdaqdatalink.get_table("QDL/BCHAIN", code="MKPRU", qopts={"columns":["date", "value"]}, api_key='BWjb71pVxZUtetJWYxFe', paginate=True)
 
 # Convert dates to datetime object for easy use
-df['date'] = pd.to_datetime(df['date'], utc=True)
+df['date'] = pd.to_datetime(df['date'])
 
 # restructure quandl dataframe
 df = df[['date', 'value']]
