@@ -7,6 +7,8 @@ import plotly.graph_objects as go
 import nasdaqdatalink
 import yfinance as yf
 
+import streamlit as st
+
 # Download historical data from Nasdaq-Data-Link
 df = nasdaqdatalink.get_table("QDL/BCHAIN", code="MKPRU", qopts={"columns":["date", "value"]}, api_key='BWjb71pVxZUtetJWYxFe', paginate=True)
 
@@ -97,13 +99,15 @@ fig.update_xaxes(title='Date')
 fig.update_yaxes(title='Price ($USD)', type='log', showgrid=False)
 fig.update_yaxes(title='Risk', type='linear', secondary_y=True, showgrid=True, tick0=0.0, dtick=0.1, range=[0, 1])
 fig.update_layout(template='plotly_dark', title={'text': AnnotationText, 'y': 0.9, 'x': 0.5})
-fig.show()
+
+st.plotly_chart(fig, use_container_width=True)
 
 # Plot BTC-USD colored according to Risk values on a logarithmic chart
 fig = px.scatter(df, x='date', y='value', color='avg', color_continuous_scale='jet')
 fig.update_yaxes(title='Price ($USD)', type='log', showgrid=False)
 fig.update_layout(template='plotly_dark', title={'text': AnnotationText, 'y': 0.9, 'x': 0.5})
-fig.show()
+
+st.plotly_chart(fig, use_container_width=True)
 
 # Plot Predicting BTC price according to specific risk
 fig = go.Figure(data=[go.Table(
@@ -117,4 +121,5 @@ fig = go.Figure(data=[go.Table(
                align='left'))
 ])
 fig.update_layout(width=500, height=500, title={'text': 'Price according to specific risk', 'y': 0.9, 'x': 0.5})
-fig.show()
+
+st.plotly_chart(fig, use_container_width=True)
