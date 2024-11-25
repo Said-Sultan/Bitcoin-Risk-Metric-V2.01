@@ -72,6 +72,7 @@ def load_data():
 
     # Normalization to 0-1 range
     df['avg'] = (df['Preavg'] - df['Preavg'].cummin()) / (df['Preavg'].cummax() - df['Preavg'].cummin()).round(2)
+    df['avg'] = df['avg'].round(2)
 
     # Predicting the price according to risk level
     price_per_risk = {
