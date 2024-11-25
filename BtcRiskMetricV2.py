@@ -76,9 +76,9 @@ def load_data():
 
     # Predicting the price according to risk level
     price_per_risk = {
-        round(risk, 1):round(np.exp(
+        round(risk, 1):f"{round(np.exp(
             (risk * (df['Preavg'].cummax().iloc[-1] - (cummin := df['Preavg'].cummin().iloc[-1])) + cummin) / df.index[-1]**diminishing_factor + np.log(df['MA'].iloc[-1])
-        ))
+        )):_.2f}".replace("_", " ")
         for risk in np.arange(0.0, 1.0, 0.1)
     }
 
